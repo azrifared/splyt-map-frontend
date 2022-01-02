@@ -16,10 +16,13 @@ const Sidebar: React.FC<Props> = ({
       isOpen={isOpen}
       closeButtonAriaLabel='Close'
       isLightDismiss={true}
-      headerText='Find Splyt Office'
+      headerText='Settings'
       onDismiss={() => openPanel(false)}
     >
-      <SidebarContent />
+      <SidebarContent
+        isOpen={isOpen}
+        openPanel={openPanel}
+      />
     </Panel>
   );
 };

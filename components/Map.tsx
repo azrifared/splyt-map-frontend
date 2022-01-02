@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
-import ReactMapGL, { GeolocateControl } from 'react-map-gl';
+import React from 'react';
+import ReactMapGL, { GeolocateControl, Marker } from 'react-map-gl';
+import { Logo } from './Logo';
+import Pin from '../images/pin.png';
+
+export type ViewPort = {
+  latitude: number;
+  longitude: number;
+};
 
 type Props = {
   mapToken: string;
-};
-
-type ViewPort = {
-  latitude: number;
-  longitude: number;
-  zoom: number;
+  viewPort: ViewPort;
+  setViewPort: (obj: ViewPort) => void;
 };
 
 const geolocateControlStyle = {
@@ -16,22 +19,20 @@ const geolocateControlStyle = {
   top: 10
 };
 
-const mapGLDefault = {
-  latitude: 37.7577,
-  longitude: -122.4376,
-  zoom: 17
-};
-
-const Map: React.FC<Props> = ({ mapToken }) => {
-  const [viewport, setViewport] = useState<ViewPort>(mapGLDefault);
+const Map: React.FC<Props> = ({
+  mapToken,
+  viewPort,
+  setViewPort
+}) => {
 
   return (
     <ReactMapGL
-      {...viewport}
+      {...viewPort}
+      zoom={17}
       width="100vw"
       height="100vh"
       mapboxApiAccessToken={mapToken}
-      onViewportChange={(nextViewport: ViewPort) => setViewport(nextViewport)}
+      onViewportChange={(nextViewport: ViewPort) => setViewPort(nextViewport)}
     >
       <GeolocateControl
         style={geolocateControlStyle}
@@ -39,6 +40,12 @@ const Map: React.FC<Props> = ({ mapToken }) => {
         trackUserLocation={true}
         auto
       />
+      <Marker latitude={1.285194} longitude={103.8522982}>
+        <Logo src={Pin.src}/>
+      </Marker>
+      <Marker latitude={51.5049375} longitude={-0.0964509}>
+        <Logo src={Pin.src}/>
+      </Marker>
     </ReactMapGL>
   );
 };
