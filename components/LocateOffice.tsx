@@ -1,12 +1,17 @@
-import React, { useState } from 'react';
+import React, { useCallback } from 'react';
 import { DefaultButton } from '@fluentui/react';
 import styled from 'styled-components';
+import { FormContext } from '../utils/useForm';
 
-const LocateOffice = () => {
-  const [buttonValue, setButtonValue] = useState({
-    singapore: false,
-    london: false
-  });
+type Props = {
+  formContext: FormContext
+}
+const LocateOffice: React.FC<Props> = ({ formContext }) => {
+  const changeHandler = useCallback((value) => {
+    formContext.handleChange(
+      { name: 'office', value }
+    )
+  }, [formContext])
 
   return (
     <LocateContainer>
@@ -14,19 +19,13 @@ const LocateOffice = () => {
       <RadioButtons>
         <RadioButton
           text='Singapore'
-          isActive={buttonValue.singapore}
-          onClick={() => setButtonValue({
-            london: false,
-            singapore: true
-          })}
+          isActive={formContext.values.office === 'singapore'}
+          onClick={() => changeHandler('singapore')}
         />
         <RadioButton
           text='London'
-          isActive={buttonValue.london}
-          onClick={() => setButtonValue({
-            london: true,
-            singapore: false,
-          })}
+          isActive={formContext.values.office === 'london'}
+          onClick={() => changeHandler('london')}
         />
       </RadioButtons>
     </LocateContainer>

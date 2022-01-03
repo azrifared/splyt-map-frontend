@@ -6,7 +6,7 @@ import { sidebarState } from '../recoil';
 
 const Sidebar = () => {
   const [isOpen, openSidebar] = useRecoilState(sidebarState);
-
+  
   return (
     <Panel
       isOpen={isOpen}

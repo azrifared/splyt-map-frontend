@@ -1,4 +1,5 @@
 import { SPLYT_OFFICE_LOCATION } from './constants';
+import { Office } from '../recoil';
 
 type GetDistanceParams = {
   lat1: number;
@@ -12,6 +13,10 @@ type UserLocation = {
   latitude: number;
   longitude: number;
 };
+
+type NearestOffice = UserLocation & {
+  location: Office;
+}
 
 export class CalculateDistance {
   private userLocation: UserLocation;
@@ -50,7 +55,7 @@ export class CalculateDistance {
     }
   }
 
-  public getNearestOffice() {
+  public getNearestOffice(): NearestOffice {
     const { latitude, longitude } = this.userLocation;
     const { london, singapore } = SPLYT_OFFICE_LOCATION;
     const londonDistance = this.getDistance({
@@ -69,9 +74,9 @@ export class CalculateDistance {
     })
   
     if (londonDistance > singaporeDistance) {
-      return singapore;
+      return { ...singapore, location: 'singapore' };
     }
   
-    return london;
+    return { ...london, location: 'london' };
   }
 }
