@@ -1,17 +1,12 @@
-import React from 'react';
 import { PrimaryButton } from '@fluentui/react';
 import styled from 'styled-components';
+import { useRecoilState } from 'recoil';
 import LocateOffice from './LocateOffice';
 import LocateTaxi from './LocateTaxi';
+import { sidebarState } from '../recoil';
 
-type Props = {
-  isOpen: boolean;
-  openPanel: (val: boolean) => void;
-}
-
-const SidebarContent: React.FC<Props> = ({
-  isOpen, openPanel
-}) => {
+const SidebarContent = () => {
+  const [isOpen, openSidebar] = useRecoilState(sidebarState);
   
   return (
     <Container>
@@ -20,11 +15,11 @@ const SidebarContent: React.FC<Props> = ({
       <ButtonContainer>
         <Button
           text='Apply'
-          onClick={() => openPanel(!isOpen)}
+          onClick={() => openSidebar(!isOpen)}
         />
         <Button
           text='Reset'
-          onClick={() => openPanel(!isOpen)}
+          onClick={() => openSidebar(!isOpen)}
         />
       </ButtonContainer>
     </Container>

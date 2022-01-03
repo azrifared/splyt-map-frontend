@@ -1,13 +1,13 @@
-import * as React from 'react'
+import * as React from 'react';
 import Document, {
   DocumentContext,
   Head,
   Html,
   Main,
   NextScript,
-} from 'next/document'
-import { Stylesheet, resetIds, InjectionMode } from '@fluentui/react'
-import { ServerStyleSheet } from 'styled-components'
+} from 'next/document';
+import { Stylesheet, resetIds, InjectionMode } from '@fluentui/react';
+import { ServerStyleSheet } from 'styled-components';
 
 const stylesheet = Stylesheet.getInstance()
 
@@ -18,10 +18,10 @@ stylesheet.setConfig({
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
-    stylesheet.reset()
-    resetIds()
-    const sheet = new ServerStyleSheet()
-    const originalRenderPage = ctx.renderPage
+    stylesheet.reset();
+    resetIds();
+    const sheet = new ServerStyleSheet();
+    const originalRenderPage = ctx.renderPage;
 
     try {
       ctx.renderPage = () =>
@@ -30,8 +30,8 @@ export default class MyDocument extends Document {
             sheet.collectStyles(<App {...props} />),
         })
 
-      const initialProps = await Document.getInitialProps(ctx)
-      const styleTags = stylesheet.getRules(true)
+      const initialProps = await Document.getInitialProps(ctx);
+      const styleTags = stylesheet.getRules(true);
 
       return {
         ...initialProps,
@@ -53,7 +53,7 @@ export default class MyDocument extends Document {
   }
 
   render() {
-    const { serializedStylesheet } = this.props as any
+    const { serializedStylesheet } = this.props as any;
 
     return (
       <Html>

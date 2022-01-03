@@ -1,15 +1,11 @@
 import React from 'react';
 import { Panel } from '@fluentui/react';
+import { useRecoilState } from 'recoil'
 import SidebarContent from './SidebarContent';
+import { sidebarState } from '../recoil';
 
-type Props = {
-  isOpen: boolean;
-  openPanel: (val: boolean) => void;
-};
-
-const Sidebar: React.FC<Props> = ({
-  isOpen, openPanel
-}) => {
+const Sidebar = () => {
+  const [isOpen, openSidebar] = useRecoilState(sidebarState);
 
   return (
     <Panel
@@ -17,12 +13,9 @@ const Sidebar: React.FC<Props> = ({
       closeButtonAriaLabel='Close'
       isLightDismiss={true}
       headerText='Settings'
-      onDismiss={() => openPanel(false)}
+      onDismiss={() => openSidebar(false)}
     >
-      <SidebarContent
-        isOpen={isOpen}
-        openPanel={openPanel}
-      />
+      <SidebarContent />
     </Panel>
   );
 };

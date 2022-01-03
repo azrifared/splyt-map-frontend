@@ -7,7 +7,7 @@ const LocateTaxi = () => {
   
   return (
     <LocateContainer>
-      <div>Display Available Taxi</div>
+      <div>Display Available Taxis</div>
       <Slider
         value={value}
         lowerValue={0}

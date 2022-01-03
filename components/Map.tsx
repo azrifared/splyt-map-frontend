@@ -1,7 +1,12 @@
-import React from 'react';
-import ReactMapGL, { GeolocateControl, Marker } from 'react-map-gl';
-import { Logo } from './Logo';
-import Pin from '../images/pin.png';
+import React, { useCallback } from 'react';
+import ReactMapGL, { GeolocateControl } from 'react-map-gl';
+import { useRecoilState } from 'recoil';
+import { SPLYT_OFFICE_LOCATION } from '../utils/constants';
+import MarkerPin from './MarkerPin';
+import {
+  userLocationState,
+  viewPortState
+} from '../recoil';
 
 export type ViewPort = {
   latitude: number;
@@ -10,8 +15,6 @@ export type ViewPort = {
 
 type Props = {
   mapToken: string;
-  viewPort: ViewPort;
-  setViewPort: (obj: ViewPort) => void;
 };
 
 const geolocateControlStyle = {
@@ -19,11 +22,16 @@ const geolocateControlStyle = {
   top: 10
 };
 
-const Map: React.FC<Props> = ({
-  mapToken,
-  viewPort,
-  setViewPort
-}) => {
+const Map: React.FC<Props> = ({ mapToken }) => {
+  const { singapore, london } = SPLYT_OFFICE_LOCATION;
+  const [userLocation, setUserLocation] = useRecoilState(userLocationState);
+  const [viewPort, setViewPort] = useRecoilState(viewPortState);
+  const userLocationHandler = useCallback(({
+    latitude, longitude
+  }) => {
+    setViewPort({ latitude, longitude });
+    setUserLocation({ latitude, longitude });
+  }, [userLocation]);
 
   return (
     <ReactMapGL
@@ -38,14 +46,17 @@ const Map: React.FC<Props> = ({
         style={geolocateControlStyle}
         positionOptions={{ enableHighAccuracy: true }}
         trackUserLocation={true}
+        onViewportChange={userLocationHandler}
         auto
       />
-      <Marker latitude={1.285194} longitude={103.8522982}>
-        <Logo src={Pin.src}/>
-      </Marker>
-      <Marker latitude={51.5049375} longitude={-0.0964509}>
-        <Logo src={Pin.src}/>
-      </Marker>
+      <MarkerPin
+        latitude={singapore.latitude}
+        longitude={singapore.longitude}
+      />
+      <MarkerPin
+        latitude={london.latitude}
+        longitude={london.longitude}
+      />
     </ReactMapGL>
   );
 };

@@ -1,30 +1,37 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { PrimaryButton } from '@fluentui/react';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import { ViewPort } from './Map';
+import { CalculateDistance } from '../utils/calculateDistance';
+import {
+  userLocationState,
+  viewPortState,
+  sidebarState
+} from '../recoil';
 
-type Props = {
-  isOpen: boolean;
-  openPanel: (val: boolean) => void;
-  setViewPort: (vp: ViewPort) => void;
-}
+const FindButton = () => {
+  const userLocation = useRecoilValue(userLocationState);
+  const [viewPort, setViewPort] = useRecoilState(viewPortState);
+  const [isOpen, openSidebar] = useRecoilState(sidebarState);
+  const viewPortHandler = useCallback(() => {
+    if (!userLocation) return;
 
-const FindButton: React.FC<Props> = ({
-  isOpen, openPanel, setViewPort
-}) => {
+    const DistanceService = new CalculateDistance(userLocation)
+    const officeViewPort = DistanceService.getNearestOffice();
+    setViewPort(officeViewPort);
+  }, [viewPort]);
+
+  if (!userLocation) return <></>;
 
   return (
     <ButtonContainer>
       <Button
         text='Find Splyt Office'
-        onClick={() => setViewPort({
-          latitude: 1.285194,
-          longitude: 103.8522982,
-        })}
+        onClick={viewPortHandler}
       />
       <Button
         text='Settings'
-        onClick={() => openPanel(!isOpen)}
+        onClick={() => openSidebar(!isOpen)}
       />
     </ButtonContainer>
   );
