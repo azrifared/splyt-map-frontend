@@ -11,7 +11,7 @@ const LocateOffice: React.FC<Props> = ({ formContext }) => {
     formContext.handleChange(
       { name: 'office', value }
     )
-  }, [formContext])
+  }, [formContext]);
 
   return (
     <LocateContainer>

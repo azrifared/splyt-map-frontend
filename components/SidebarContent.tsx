@@ -41,7 +41,6 @@ const SidebarContent = () => {
     formContext.handleChange({ name: 'displayedTaxis', value: 0 });
   }, []);
 
-
   return (
     <Container>
       <LocateOffice formContext={formContext} />

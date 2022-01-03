@@ -7,13 +7,13 @@ const LocateTaxi = () => {
   
   return (
     <LocateContainer>
-      <div>Display Available Taxis</div>
+      <div>Display Available Drivers</div>
       <Slider
         value={value}
         lowerValue={0}
         max={20}
         min={0}
-        onChange={(num) =>  setValue(num)}
+        onChange={setValue}
       />
     </LocateContainer>
   )

@@ -1,5 +1,7 @@
-import { atom } from 'recoil';
-import { DEFAULT_VIEW_PORT } from '../utils/constants';
+import { atom, selector } from 'recoil';
+import { DEFAULT_VIEW_PORT, SPLYT_OFFICE_LOCATION } from '../utils/constants';
+import { DriversApi } from '../services/DriversApi';
+import { off } from 'process';
 
 type UserLocation = {
   latitude: number;
@@ -35,7 +37,32 @@ export const sidebarState = atom({
 /**
  * State to maintain office location
  */
- export const officeState = atom<Office | undefined>({
+export const officeState = atom<Office | undefined>({
   key: 'OfficeState',
   default: undefined
 });
+
+/**
+ * Handling drivers state
+ */
+export const driversState = selector({
+  key: 'DriversState',
+  get: async ({ get }) => {
+    const office = get(officeState)
+
+    if (!office) return undefined;
+
+    try {
+      const viewPort = SPLYT_OFFICE_LOCATION[office];
+      const driversRecord = await DriversApi.getDrivers({
+        ...viewPort,
+        count: 10
+      });
+      
+      return driversRecord;
+    } catch(error: any) {
+      console.error(`Failed to get drivers record. ${error.message}`)
+      return undefined;
+    }
+  }
+})
