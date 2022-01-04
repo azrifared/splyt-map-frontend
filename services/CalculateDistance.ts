@@ -1,4 +1,4 @@
-import { SPLYT_OFFICE_LOCATION } from './constants';
+import { SPLYT_OFFICE_LOCATION } from '../utils/constants';
 import { Office } from '../recoil';
 
 type GetDistanceParams = {
@@ -27,7 +27,7 @@ export class CalculateDistance {
 
   public getDistance({
     lat1, lon1, lat2, lon2, unit
-  }: GetDistanceParams) {
+  }: GetDistanceParams) {  
 
     if ((lat1 == lat2) && (lon1 == lon2)) {
       return 0;

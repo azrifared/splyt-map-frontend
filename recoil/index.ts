@@ -1,7 +1,6 @@
 import { atom, selector } from 'recoil';
 import { DEFAULT_VIEW_PORT, SPLYT_OFFICE_LOCATION } from '../utils/constants';
 import { DriversApi } from '../services/DriversApi';
-import { off } from 'process';
 
 type UserLocation = {
   latitude: number;
@@ -43,12 +42,21 @@ export const officeState = atom<Office | undefined>({
 });
 
 /**
+ * State to mainatain numbers of displayed drivers
+ */
+export const countDriversState = atom<number>({
+  key: 'CountDriversState',
+  default: 10
+})
+
+/**
  * Handling drivers state
  */
 export const driversState = selector({
   key: 'DriversState',
   get: async ({ get }) => {
-    const office = get(officeState)
+    const office = get(officeState);
+    const countDrivers = get(countDriversState);
 
     if (!office) return undefined;
 
@@ -56,7 +64,7 @@ export const driversState = selector({
       const viewPort = SPLYT_OFFICE_LOCATION[office];
       const driversRecord = await DriversApi.getDrivers({
         ...viewPort,
-        count: 10
+        count: countDrivers
       });
       
       return driversRecord;

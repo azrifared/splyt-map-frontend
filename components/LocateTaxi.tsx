@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Slider } from '@fluentui/react';
+import { FormContext } from '../utils/useForm';
 
-const LocateTaxi = () => {
-  const [value, setValue] = useState(0);
+type Props = {
+  formContext: FormContext
+};
+
+const LocateTaxi: React.FC<Props> = ({ formContext }) => {
+  const [value, setValue] = useState(formContext.values.displayedTaxis);
   
   return (
     <LocateContainer>
@@ -13,7 +18,12 @@ const LocateTaxi = () => {
         lowerValue={0}
         max={20}
         min={0}
-        onChange={setValue}
+        onChange={(num) => {
+          setValue(num);
+          formContext.handleChange({
+            name: 'displayedTaxis', value: num
+          })
+        }}
       />
     </LocateContainer>
   )

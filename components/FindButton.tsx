@@ -6,7 +6,7 @@ import {
   useSetRecoilState
 } from 'recoil';
 import styled from 'styled-components';
-import { CalculateDistance } from '../utils/calculateDistance';
+import { CalculateDistance } from '../services/CalculateDistance';
 import {
   userLocationState,
   viewPortState,

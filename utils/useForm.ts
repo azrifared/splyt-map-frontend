@@ -11,7 +11,6 @@ export type Values = {
   displayedTaxis: number | undefined;
 }
 
-
 type HandleChangeParams = {
   name: string;
   value: any;
@@ -22,7 +21,6 @@ export type FormContext = {
   handleChange: (value: HandleChangeParams) => void;
   handleSubmit: () => void;
 } 
-
 
 export function useForm<TValues>({ initialValues, onSubmit }: FormConfig<TValues>) {
   const [values, setValues] = useState<TValues>(initialValues);

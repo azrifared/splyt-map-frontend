@@ -16,7 +16,6 @@ const MarkerPin: React.FC<Props> = ({
   <Marker
     latitude={latitude}
     longitude={longitude}
-    
   >
     <RotateLogo
       src={Car.src}

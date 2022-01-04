@@ -6,6 +6,7 @@ import { FormContext } from '../utils/useForm';
 type Props = {
   formContext: FormContext
 }
+
 const LocateOffice: React.FC<Props> = ({ formContext }) => {
   const changeHandler = useCallback((value) => {
     formContext.handleChange(

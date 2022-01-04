@@ -2,7 +2,7 @@ import React from 'react';
 import { Panel } from '@fluentui/react';
 import { useRecoilState } from 'recoil'
 import SidebarContent from './SidebarContent';
-import { sidebarState } from '../recoil';
+import { sidebarState,  } from '../recoil';
 
 const Sidebar = () => {
   const [isOpen, openSidebar] = useRecoilState(sidebarState);
