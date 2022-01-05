@@ -1,13 +1,19 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+## How to run for development
 
 First, run the development server:
 
-```bash
-npm install
-npm run dev
-```
+1. Run `npm install` to fetch dependencies
+2. Create `.env.local` file in project root directory with following environment variables:
+  - `MAP_TOKEN` (Please ask Hui Theng for the access token)
+3. Run `npm run dev` 
+4. By default server will be running on `http://localhost:3000` .
+
+### Environment variables
+| Env Variable         | Required        | Default Value      |
+| -------------------- | --------------- | ------------------ |
+| MAP_TOKEN              _required       | -                  |
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
