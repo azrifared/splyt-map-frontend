@@ -7,6 +7,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
   - `MAP_TOKEN` (Please ask Hui Theng for the access token)
 3. Run `npm run dev` 
 4. By default server will be running on `http://localhost:3000` .
+5. You need to run backend service locally. Please check this repository https://github.com/azrifared/splyt-map-backend
 
 ### Environment variables
 | Env Variable         | Required        | Default Value      |
