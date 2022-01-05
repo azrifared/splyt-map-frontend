@@ -50,6 +50,14 @@ export const countDriversState = atom<number>({
 })
 
 /**
+ * maintain interval state
+ */
+export const intervalState = atom({
+  key: 'IntervalState',
+  default: 0
+})
+
+/**
  * Handling drivers state
  */
 export const driversState = selector({
@@ -57,7 +65,8 @@ export const driversState = selector({
   get: async ({ get }) => {
     const office = get(officeState);
     const countDrivers = get(countDriversState);
-
+    get(intervalState);
+    
     if (!office) return undefined;
 
     try {

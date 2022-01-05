@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import ReactMapGL, { GeolocateControl } from 'react-map-gl';
 import { useRecoilState, useRecoilValueLoadable } from 'recoil';
 import { SPLYT_OFFICE_LOCATION } from '../utils/constants';
@@ -8,6 +8,7 @@ import {
   userLocationState,
   viewPortState,
   driversState,
+  intervalState
 } from '../recoil';
 import { Driver } from '../services/DriversApi';
 
@@ -29,6 +30,7 @@ const Map: React.FC<Props> = ({ mapToken }) => {
   const { singapore, london } = SPLYT_OFFICE_LOCATION;
   const [userLocation, setUserLocation] = useRecoilState(userLocationState);
   const [viewPort, setViewPort] = useRecoilState(viewPortState);
+  const [intervalValue, setIntervalValue] = useRecoilState(intervalState);
   const { state, contents } = useRecoilValueLoadable(driversState)
   const userLocationHandler = useCallback(({
     latitude, longitude
@@ -38,6 +40,13 @@ const Map: React.FC<Props> = ({ mapToken }) => {
   }, [userLocation]);
   const showDrivers = state !== 'loading' && contents?.data?.length > 0;
   const drivers = contents?.data as Driver[];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIntervalValue(intervalValue + 1)
+    }, 20000);
+    return () => clearInterval(interval);
+  }, [intervalValue])
 
   return (
     <ReactMapGL
