@@ -2,8 +2,6 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## How to run for development
 
-First, run the development server:
-
 1. Run `npm install` to fetch dependencies
 2. Create `.env.local` file in project root directory with following environment variables:
   - `MAP_TOKEN` (Please ask Hui Theng for the access token)
