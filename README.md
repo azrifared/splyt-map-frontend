@@ -13,7 +13,7 @@ First, run the development server:
 ### Environment variables
 | Env Variable         | Required        | Default Value      |
 | -------------------- | --------------- | ------------------ |
-| MAP_TOKEN              _required       | -                  |
+| MAP_TOKEN            | _required_      | -                  |
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
